@@ -10,8 +10,8 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder =>
     {
         builder.WithOrigins("http://localhost:5173")
-               .WithHeaders("header1", "header2")
-               .WithMethods("GET", "POST", "PUT", "DELETE");
+               .AllowAnyHeader()
+               .AllowAnyMethod();
     });
 });
 builder.Services.AddControllers();
