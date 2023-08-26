@@ -39,11 +39,9 @@ namespace trackingApi.Migrations
 
             modelBuilder.Entity("trackingApi.Model.Expense", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -63,13 +61,13 @@ namespace trackingApi.Migrations
 
             modelBuilder.Entity("trackingApi.Model.Expense", b =>
                 {
-                    b.HasOne("trackingApi.Model.Category", "Categories")
+                    b.HasOne("trackingApi.Model.Category", "Category")
                         .WithMany("Expenses")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categories");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("trackingApi.Model.Category", b =>

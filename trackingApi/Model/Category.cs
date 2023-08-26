@@ -5,7 +5,6 @@ namespace trackingApi.Model
     public class Category
     {
         public Guid Id { get; set; }
-        [Required]
         public string? CategoryName { get; set; }
 
         public virtual List<Expense> Expenses { get; set; }

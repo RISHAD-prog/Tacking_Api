@@ -12,8 +12,8 @@ using trackingApi.Data;
 namespace trackingApi.Migrations
 {
     [DbContext(typeof(CategoryApiDbContext))]
-    [Migration("20230826063403_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20230826113939_Initial Migrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,11 +42,9 @@ namespace trackingApi.Migrations
 
             modelBuilder.Entity("trackingApi.Model.Expense", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -59,7 +57,25 @@ namespace trackingApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("trackingApi.Model.Expense", b =>
+                {
+                    b.HasOne("trackingApi.Model.Category", "Category")
+                        .WithMany("Expenses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("trackingApi.Model.Category", b =>
+                {
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }

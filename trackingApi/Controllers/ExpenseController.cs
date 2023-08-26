@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using trackingApi.Data;
@@ -8,6 +9,7 @@ namespace trackingApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ExpenseController : ControllerBase
     {
         private readonly CategoryApiDbContext categoryApiDbContext;
@@ -27,20 +29,21 @@ namespace trackingApi.Controllers
         }
 
         [HttpPost]
-        [Route("AddExpense/{id:guid}")]
-        public async Task<IActionResult> AddExpense(Expense e, [FromRoute] Guid id)
+        public async Task<IActionResult> AddExpense(AddExpense ex)
         {
-            var data = new Expense()
-            {
-                Id = e.Id,
-                CategoryId = id,
-                ExpenseAmount = e.ExpenseAmount,
-                ExpenseDate = e.ExpenseDate
-            };
-            await categoryApiDbContext.Expenses.AddAsync(data);
-            await categoryApiDbContext.SaveChangesAsync();
+            
+                var data = new Expense()
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = ex.CategoryId,
+                    ExpenseAmount = ex.ExpenseAmount,
+                    ExpenseDate = ex.ExpenseDate
+                };
+                await categoryApiDbContext.Expenses.AddAsync(data);
+                await categoryApiDbContext.SaveChangesAsync();
 
-            return Ok(data);    
+                return Ok(data);
+              
         }
     }
 }

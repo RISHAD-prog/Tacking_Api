@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import Main from '../Layout/Main';
 import Category from '../pages/Category/Category';
+import Expense from '../pages/Expense/Expense';
 const router = createBrowserRouter([
     {
       path: "/",
@@ -12,6 +13,11 @@ const router = createBrowserRouter([
         {
             path: "/",
             element:<Category></Category>
+        },
+        {
+            path:"Expense/:id",
+            element:<Expense></Expense>,
+            loader: ({params})=> fetch(`https://localhost:7049/api/Expense/${params.id}`)
         }
       ]
     },
