@@ -20,7 +20,7 @@ const Category = () => {
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{c.categoryName}</h2>
                     <div className="">
-                    <Link to={`http://localhost:5173/Expense/${c.id}`}><button className="btn btn-primary">See Expenses</button></Link> 
+                    <Link to={`http://localhost:5173/Expense/${c.id}`}><button className="btn btn-primary">See Expenses</button></Link>
                     <button className="btn btn-ghost">Change CategoryName</button>
                     </div>
                 </div>

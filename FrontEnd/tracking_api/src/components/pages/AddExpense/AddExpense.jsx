@@ -33,7 +33,7 @@ const AddExpense = () => {
             reset();
             alert("Expense has been inserted")
         }
-                  
+
     }
     return (
         <div>
